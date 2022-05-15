@@ -27,28 +27,3 @@ let gallery = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
-
-listEl.addEventListener('click', onOpenModal);
-
-function onOpenModal(e) {
-  e.preventDefault();
-  if (e.target.nodeName !== 'IMG') {
-    return;
-  }
-  const instance = basicLightbox.create(`<img src="${e.target.dataset.source}" >`, {
-    onShow: () => {
-      addEventListener('keydown', onEscKeyPress);
-    },
-    onClose: () => {
-      removeEventListener('keydown', onEscKeyPress);
-    },
-  });
-  function onEscKeyPress(e) {
-    console.log(e.code);
-    if (e.code === 'Escape') {
-      instance.close();
-      removeEventListener('keydown', onEscKeyPress);
-    }
-  }
-  instance.show();
-}

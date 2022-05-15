@@ -14,6 +14,10 @@ ref.form.addEventListener('submit', submitLocalStorage);
 
 function submitLocalStorage(e) {
   e.preventDefault();
+  if (ref.input.value === '' || ref.textArea.value === '') {
+    alert('Fill all fields, please');
+    return;
+  }
   e.target.reset();
   console.log(formData);
   localStorage.clear();
@@ -26,10 +30,14 @@ function setLocaleStorageData(e) {
 
 function outputLocalStorageData() {
   const localStorageData = localStorage.getItem('feedback-form-state');
+
   if (localStorageData) {
     const parsedSettings = JSON.parse(localStorageData);
-
-    ref.input.value = parsedSettings.email;
-    ref.textArea.value = parsedSettings.message;
+    if (parsedSettings.email) {
+      ref.input.value = parsedSettings.email;
+    }
+    if (parsedSettings.message) {
+      ref.textArea.value = parsedSettings.message;
+    }
   }
 }
